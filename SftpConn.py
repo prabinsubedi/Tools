@@ -28,11 +28,15 @@ print "err", error, len(error)
 sftp = ssh.open_sftp()
 #print "conected"
 
-local_path = "/root/backup/"
+#The local path where files to be downloded 
+local_path = "/root/backup/"  
 
-remote_path = '/root/backup/'
+#The Remote path of the Server 
 sftp.chdir(remote_path)
-print "changed"
+remote_path = '/root/backup/' 
+
+#print "changed"
+
 for filename in (sftp.listdir()):
 	
 	fullpath = os.path.join(remote_path, filename)
@@ -41,7 +45,8 @@ for filename in (sftp.listdir()):
 	createtime = datetime.datetime.now()
 	now = time.mktime(createtime.timetuple())
 	datetime.timedelta = now - timestamp
-	
+
+#Download the latest file	
 	if datetime.timedelta < 86400:
 		print filename 
 
