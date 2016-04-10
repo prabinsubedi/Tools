@@ -4,16 +4,10 @@ import os
 import paramiko
 import time 
 import datetime 
-import smtplib 
-from email.mime.text import MIMEText
-from email.mime.application import MIMEApplication
-from email.mime.multipart import MIMEMultipart
-from smtplib import SMTP
 
+#Define Server Detail for sftp
 
-#Define Server Detail
-
-server, user, password, port = ('', 'root', '', 22)
+server, user, password, port = ('', '', '', 22)
 ssh = paramiko.SSHClient()
 paramiko.util.log_to_file('paramiko.log')
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -40,8 +34,8 @@ remote_path = '/root/backup/'
 for filename in (sftp.listdir()):
 	
 	fullpath = os.path.join(remote_path, filename)
-	
-	timestamp  = sftp.stat(fullpath).st_atime  # get timestamp of file in epoch secon
+# get timestamp of file in epoch secon
+	timestamp  = sftp.stat(fullpath).st_atime  
 	createtime = datetime.datetime.now()
 	now = time.mktime(createtime.timetuple())
 	datetime.timedelta = now - timestamp
