@@ -13,7 +13,7 @@ def email_send(file_arrive):
 	fromadd = ""
 	toadd = ['','',]  
 	msg = MIMEMultipart('alternative')
-	part = MIMEApplication(open("/home/wbushby/PaymentFiles/%s" % file_arrive , "rb").read())
+	part = MIMEApplication(open("/Path_To_File_Location/%s" % file_arrive , "rb").read())
 	part.add_header('Content-Disposition', 'attachment', filename="%s" % file_arrive) 
 	msg.attach(part)
 	msg['Subject'] = "Your New File Found"
@@ -33,11 +33,11 @@ def email_send(file_arrive):
     port = smtp_port,
     timeout = 10
 )
-	# mail = smtplib.SMTP('smtp.gmail.com', 587)
+	
 	mail.set_debuglevel(10)
 	mail.ehlo()
 	mail.starttls()
-	# password = raw_input("Enter Your Email Password")
+	
 	mail.login(smtp_username, smtp_password) 
 	mail.sendmail(fromadd, toadd, msg.as_string())
 	print "mail send with attachment"
@@ -52,6 +52,6 @@ for dirpath, dirnames, filenames in os.walk(path):
 			#if files.endswith('.CSV'):
 			file_arrive = files
 			email_send(file_arrive)
-print "No file Found"
+
 
 
